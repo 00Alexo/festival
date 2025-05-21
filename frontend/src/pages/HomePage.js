@@ -10,7 +10,7 @@ const HomePage = () => {
         {/* Hero Section */}
         <section className="mb-20 text-center">
           <h1 className="text-5xl md:text-7xl font-bold text-orange-600 mb-6 font-serif">
-            Clubul de Teatru
+            Clubul de Teatru "Ioana Cîcu"
           </h1>
           <p className="text-xl md:text-2xl text-amber-900 max-w-3xl mx-auto">
             O experiență culturală unică în inima artelor performative
@@ -27,7 +27,7 @@ const HomePage = () => {
                 className="rounded-xl shadow-2xl max-w-full h-auto"
               />
               <div className="absolute -bottom-5 -right-5 bg-orange-500 text-white py-2 px-4 rounded-lg shadow-lg transform rotate-3">
-                <span className="font-bold">Ediția 2024</span>
+                <span className="font-bold">Ediția 2025</span>
               </div>
             </div>
           </div>
@@ -41,20 +41,17 @@ const HomePage = () => {
                 Te invităm să participi la cea mai recentă ediție a festivalului nostru de teatru, un eveniment dedicat tinerelor talente.
               </p>
               <ul className="list-disc list-inside space-y-2">
-                <li><span className="font-semibold">Data:</span> 18 Mai 2024</li>
+                <li><span className="font-semibold">Data:</span> 24 Mai 2025</li>
                 <li><span className="font-semibold">Locația:</span> Teatrul Municipal Carei</li>
-                <li><span className="font-semibold">Program:</span> 09:00 - 17:00</li>
+                <li><span className="font-semibold">Program:</span> 09:00 - 16:00</li>
               </ul>
               <p>
                 Festivalul aduce împreună tineri pasionați de teatru din diverse județe, oferind o platformă pentru exprimarea 
                 creativității și dezvoltarea abilităților actoricești într-un cadru profesionist.
               </p>
-              <a 
-                href="/editii/2024" 
-                className="inline-block mt-4 bg-amber-700 text-amber-50 px-6 py-2 rounded-lg hover:bg-amber-600 transition-colors shadow-md"
-              >
+              <button className="inline-block mt-4 bg-amber-700 text-amber-50 px-6 py-2 rounded-lg hover:bg-amber-600 transition-colors shadow-md">
                 Detalii eveniment
-              </a>
+              </button>
             </div>
           </div>
         </section>
@@ -64,7 +61,7 @@ const HomePage = () => {
           <h2 className="text-4xl font-bold text-amber-800 mb-10 text-center font-serif">Conceptul Festivalului</h2>
           
           <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div className="bg-amber-100 p-8 rounded-2xl shadow-lg">
+            <div className="bg-amber-100 p-8 rounded-2xl shadow-lg h-[100%]">
               <h3 className="text-2xl font-bold text-orange-600 mb-4">Viziune și Misiune</h3>
               <p className="text-amber-900 mb-4">
                 Teatru Club își propune să fie un laborator de creativitate și expresie artistică, reunind artiști și iubitori 
@@ -118,68 +115,6 @@ const HomePage = () => {
           </div>
         </section>
       </main>
-
-      {/* Modern Footer */}
-      <footer className="bg-gradient-to-br from-amber-800 to-amber-900 text-amber-100 py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {/* Contact Info */}
-            <div>
-              <h3 className="text-xl font-bold text-amber-300 mb-6 border-b border-amber-700 pb-2">Contact</h3>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2">
-                  <span className="font-semibold">Email:</span>
-                  <a href="mailto:contact@teatruclub.ro" className="hover:text-amber-300 transition-colors">contact@teatruclub.ro</a>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="font-semibold">Telefon:</span>
-                  <a href="tel:+40123456789" className="hover:text-amber-300 transition-colors">+40 123 456 789</a>
-                </li>
-                <li>
-                  <span className="font-semibold">Adresă:</span>
-                  <p className="mt-1">Carei Carei Carei Carei</p>
-                </li>
-              </ul>
-            </div>
-            
-            {/* Sponsors */}
-            <div>
-              <h3 className="text-xl font-bold text-amber-300 mb-6 border-b border-amber-700 pb-2">Sponsori</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-amber-700/50 p-3 rounded-lg hover:bg-amber-700 transition-colors flex items-center justify-center">Sponsor 1</div>
-                <div className="bg-amber-700/50 p-3 rounded-lg hover:bg-amber-700 transition-colors flex items-center justify-center">Sponsor 2</div>
-                <div className="bg-amber-700/50 p-3 rounded-lg hover:bg-amber-700 transition-colors flex items-center justify-center">Sponsor 3</div>
-                <div className="bg-amber-700/50 p-3 rounded-lg hover:bg-amber-700 transition-colors flex items-center justify-center">Sponsor 4</div>
-              </div>
-            </div>
-            
-            {/* Social Media & Newsletter */}
-            <div>
-              <h3 className="text-xl font-bold text-amber-300 mb-6 border-b border-amber-700 pb-2">Conectează-te</h3>
-              <div className="flex gap-4 mb-6">
-                <a href="https://facebook.com" className="bg-amber-700/50 p-3 rounded-full hover:bg-amber-700 transition-colors" target="_blank" rel="noopener noreferrer">
-                  <FaFacebookF className="text-xl" />
-                </a>
-                <a href="https://instagram.com" className="bg-amber-700/50 p-3 rounded-full hover:bg-amber-700 transition-colors" target="_blank" rel="noopener noreferrer">
-                  <FaInstagram className="text-xl" />
-                </a>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-2">Abonează-te la newsletter</h4>
-                <div className="flex">
-                  <input type="email" placeholder="Email-ul tău" className="bg-amber-700/30 py-2 px-3 rounded-l-md focus:outline-none focus:ring-2 focus:ring-amber-500 flex-grow" />
-                  <button className="bg-amber-600 px-4 py-2 rounded-r-md hover:bg-amber-500 transition-colors">Trimite</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-amber-700/50 mt-10 pt-6 text-center">
-            <p>&copy; {new Date().getFullYear()} Club Teatru. Toate drepturile rezervate.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
