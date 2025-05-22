@@ -7,7 +7,7 @@ const Editie = ({editie}) => {
             <div className="container mx-auto py-10 px-4">
                 <div className="max-w-4xl mx-auto">
                     <h1 className="text-4xl md:text-5xl font-bold text-amber-800 mb-4 font-serif text-center">
-                        Ediția {editie} - 2025
+                        Ediția a IX-a - 2025
                     </h1>
                     <h2 className="text-xl md:text-2xl text-amber-600 mb-8 text-center font-medium">
                         Festivalul Interjudețean de Teatru pentru Elevi "Ioana Cîcu"
