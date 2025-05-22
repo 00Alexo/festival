@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FaHome, FaFacebookF, FaChevronDown, FaInstagram, FaTimes, FaBars } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -59,20 +60,25 @@ const NavBar = () => {
                 </button>
                 {dropdownOpen && (
                     <div className="absolute top-full right-0 mt-2 w-56 bg-amber-800/95 backdrop-blur-sm shadow-2xl rounded-md py-2 z-10 border border-amber-700/50">
-                    <a href="/editii/2025" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția 2025</a>
-                    <a href="/editii/2024" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția 2024</a>
-                    <a href="/editii/2023" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția 2023</a>
+                        <a href="/editii/1" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția I</a>
+                        <a href="/editii/2" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția II</a>
+                        <a href="/editii/3" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția III</a>
+                        <a href="/editii/4" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția IV</a>
+                        <a href="/editii/5" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția V</a>
+                        <a href="/editii/6" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția VI</a>
+                        <a href="/editii/7" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția VII</a>
+                        <a href="/editii/8" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția VIII</a>
+                        <a href="/editii/9" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția IX</a>
                     </div>
                 )}
                 </div>
-                <a href="/galerie" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Galerie</a>
-                <a href="/regulament" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Regulament</a>
+                <Link to="/galerie" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Galerie</Link>
+                <Link to="/jurnal" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Jurnal</Link>
+                <a href="#footer" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Sponsori</a>
+                <Link to="/regulament" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Regulament</Link>
                 <div className="flex gap-4 ml-2">
-                <a href="https://facebook.com" className="hover:text-amber-300 transition-colors" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.facebook.com/people/Festivalul-Internațional-de-Teatru-pentru-Liceeni-Ioana-Cîcu/100064161033607/?rdid=GEZ5gKEYeaDHPlCp&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F19Mz1JHtRM%2F" className="hover:text-amber-300 transition-colors" target="_blank" rel="noopener noreferrer">
                     <FaFacebookF className="text-xl" />
-                </a>
-                <a href="https://instagram.com" className="hover:text-amber-300 transition-colors" target="_blank" rel="noopener noreferrer">
-                    <FaInstagram className="text-xl" />
                 </a>
                 </div>
             </div>
@@ -100,26 +106,25 @@ const NavBar = () => {
                     </div>
                     {dropdownOpen && (
                     <div className="mt-2 pl-4 border-l-2 border-amber-600 space-y-2">
-                        <a href="/editii/2025" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția I</a>
-                        <a href="/editii/2024" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția II</a>
-                        <a href="/editii/2023" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția III</a>
-                        <a href="/editii/2023" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția IV</a>
-                        <a href="/editii/2023" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția V</a>
-                        <a href="/editii/2023" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția VI</a>
-                        <a href="/editii/2023" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția VII</a>
-                        <a href="/editii/2023" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția VIII</a>
-                        <a href="/editii/2023" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția IX</a>
+                        <a href="/editii/1" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția I</a>
+                        <a href="/editii/2" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția II</a>
+                        <a href="/editii/3" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția III</a>
+                        <a href="/editii/4" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția IV</a>
+                        <a href="/editii/5" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția V</a>
+                        <a href="/editii/6" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția VI</a>
+                        <a href="/editii/7" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția VII</a>
+                        <a href="/editii/8" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția VIII</a>
+                        <a href="/editii/9" className="block px-6 py-3 hover:bg-amber-700/70 transition-colors">Ediția IX</a>
                     </div>
                     )}
                 </div>
-                <a href="/galerie" className="block py-3 text-lg hover:text-amber-300">Galerie</a>
-                <a href="/regulament" className="block py-3 text-lg hover:text-amber-300">Regulament</a>
+                <Link to="/galerie" className="block py-3 text-lg hover:text-amber-300">Galerie</Link>
+                <Link to="/jurnal" className="block py-3 text-lg hover:text-amber-300">Jurnal</Link>
+                <a href="#footer" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Sponsori</a>
+                <Link to="/regulament" className="block py-3 text-lg hover:text-amber-300">Regulament</Link>
                 <div className="flex gap-4 py-3">
-                    <a href="https://facebook.com" className="hover:text-amber-300" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.facebook.com/people/Festivalul-Internațional-de-Teatru-pentru-Liceeni-Ioana-Cîcu/100064161033607/?rdid=GEZ5gKEYeaDHPlCp&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F19Mz1JHtRM%2F" className="hover:text-amber-300" target="_blank" rel="noopener noreferrer">
                     <FaFacebookF className="text-xl" />
-                    </a>
-                    <a href="https://instagram.com" className="hover:text-amber-300" target="_blank" rel="noopener noreferrer">
-                    <FaInstagram className="text-xl" />
                     </a>
                 </div>
                 </div>

@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <div>
       {/* Main content */}
-      <main className="flex-grow container mx-auto pb-16 px-4">
+      <main className="flex-grow container mx-auto pb-16 pt-16 px-4">
         {/* Hero Section */}
         <section className="mb-20 text-center">
           <h1 className="text-5xl md:text-7xl font-bold text-orange-600 mb-6 font-serif">
@@ -64,7 +64,7 @@ const HomePage = () => {
             <div className="bg-amber-100 p-8 rounded-2xl shadow-lg h-[100%]">
               <h3 className="text-2xl font-bold text-orange-600 mb-4">Viziune și Misiune</h3>
               <p className="text-amber-900 mb-4">
-                Teatru Club își propune să fie un laborator de creativitate și expresie artistică, reunind artiști și iubitori 
+                Clubul de Teatru Ioana Cicu își propune să fie un laborator de creativitate și expresie artistică, reunind artiști și iubitori 
                 de teatru într-un spațiu de dialog și experimentare. Festivalul nostru celebrează diversitatea și profunzimea 
                 artei teatrale contemporane.
               </p>
@@ -101,7 +101,7 @@ const HomePage = () => {
               <div className="bg-orange-500 p-8 rounded-2xl shadow-lg text-amber-50">
                 <h3 className="text-2xl font-bold mb-4">Comunitate și Dialog</h3>
                 <p>
-                  Mai mult decât un simplu festival, Teatru Club creează un spațiu de comuniune și dialog între artiști, 
+                  Mai mult decât un simplu festival, Clubul de Teatru Ioana Cicu creează un spațiu de comuniune și dialog între artiști, 
                   public și critici, încurajând dezbaterile despre rolul teatrului în societatea contemporană.
                 </p>
               </div>
