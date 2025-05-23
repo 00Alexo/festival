@@ -14,8 +14,8 @@ const jurnalSchema = new mongoose.Schema({
         required: true,
     },
     likes:{
-        type: Number,
-        default: 0,
+        type: Array,
+        default: [],
         required: true,
     },
     comments:{

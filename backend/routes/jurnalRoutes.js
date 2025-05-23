@@ -1,17 +1,24 @@
-const express = require('express');
-const { 
-    uploadJurnal,
-    getJurnale
-} = require('../controllers/jurnalController');
 
+const express = require('express');
+const router = express.Router();
+const { 
+    uploadJurnal, 
+    getJurnale, 
+    postComment, 
+    getComments,
+    postAnonymousComment,
+    likeJurnal
+} = require('../controllers/jurnalController');
 const verifyAuth = require('../middleware/verifyAuth');
 
-const router = express.Router();
+// Protected routes
+router.post('/uploadJurnal', verifyAuth, uploadJurnal);
+router.post('/comment', verifyAuth, postComment);  
+router.post('/like/:jurnalId', verifyAuth, likeJurnal);
 
+// Public routes
 router.get('/getJurnale', getJurnale);
-
-router.use(verifyAuth);
-
-router.post('/uploadJurnal', uploadJurnal);
+router.post('/comment/anonymous', postAnonymousComment);  
+router.get('/getComments/:jurnalId', getComments); 
 
 module.exports = router;

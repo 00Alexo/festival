@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  FaCalendarAlt, FaComments, FaHeart, FaImage, FaPen, FaShare, FaUserCircle, FaCopy, FaCheckCircle, FaTimes
+  FaCalendarAlt, FaComments, FaHeart, FaImage, FaPen, FaShare, FaUserCircle, FaCopy, FaCheckCircle, FaTimes, FaUser, FaPaperPlane
 } from 'react-icons/fa';
 import { formatDistanceToNow } from 'date-fns';
 import { ro } from 'date-fns/locale';
+import { useAuthContext } from '../Hooks/useAuthContext';
 
 const Jurnal = () => {
+    const { user } = useAuthContext();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [isAdmin, setIsAdmin] = useState(true);
     const [showCopyModal, setShowCopyModal] = useState(false);
     const [copiedPostId, setCopiedPostId] = useState(null);
     const location = useLocation();
     const [showImageViewer, setShowImageViewer] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [commentText, setCommentText] = useState('');
+    const [showComments, setShowComments] = useState({});
+    const [submittingComment, setSubmittingComment] = useState(false);
+    const [commentError, setCommentError] = useState({});
 
     const openImageViewer = (image) => {
         setSelectedImage(image);
@@ -87,6 +92,44 @@ const Jurnal = () => {
         }
     };
 
+    const likeJurnal = async (postId) => {
+        // Check if user is logged in
+        if (!user) {
+            alert('Trebuie să fii autentificat pentru a aprecia o postare!');
+            return;
+        }
+        
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API}/api/jurnal/like/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+                body: JSON.stringify({ username: user.username })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Update post likes locally for immediate UI feedback
+                setPosts(prevPosts => 
+                    prevPosts.map(post => 
+                        post._id === postId 
+                            ? { ...post, likes: [...(post.likes || []), user.username] } 
+                            : post
+                    )
+                );
+            } else {
+                // Show error (like already given, etc.)
+                alert(data.error || 'A apărut o eroare la aprecierea postării.');
+            }
+        } catch (error) {
+            console.error("Error liking post:", error);
+            alert('A apărut o eroare la aprecierea postării.');
+        }
+    };
+
     useEffect(() => {
         // Auto-hide the modal after 3 seconds
         if (showCopyModal) {
@@ -119,6 +162,133 @@ const Jurnal = () => {
         setShowCopyModal(false);
     };
 
+    const toggleComments = (postId) => {
+        setShowComments(prev => {
+            const newState = { ...prev };
+            newState[postId] = !prev[postId];
+            
+            // If we're showing comments and they haven't been loaded yet, load them
+            if (newState[postId]) {
+                loadComments(postId);
+            }
+            
+            return newState;
+        });
+    };
+
+    // Load comments for a specific post
+    const loadComments = async (postId) => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API}/api/jurnal/getComments/${postId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error('Failed to load comments');
+            }
+            
+            const comments = await response.json();
+            
+            // Update the post's comments
+            setPosts(prevPosts => 
+                prevPosts.map(post => 
+                    post._id === postId 
+                        ? { ...post, comments: comments } 
+                        : post
+                )
+            );
+        } catch (error) {
+            console.error("Error loading comments:", error);
+            setCommentError(prev => ({
+                ...prev,
+                [postId]: 'Nu s-au putut încărca comentariile.'
+            }));
+        }
+    };
+
+    // Submit a comment (either anonymous or authenticated)
+    const submitComment = async (postId) => {
+        if (!commentText.trim()) {
+            setCommentError(prev => ({
+                ...prev,
+                [postId]: 'Te rugăm să introduci un comentariu.'
+            }));
+            return;
+        }
+        
+        setSubmittingComment(true);
+        setCommentError(prev => ({ ...prev, [postId]: '' }));
+        
+        try {
+            // Different endpoints and payload for anonymous vs authenticated
+            let endpoint = `${process.env.REACT_APP_API}/api/jurnal/comment`;
+            let payload = {
+                jurnalId: postId,
+                comment: commentText
+            };
+            let headers = {
+                'Content-Type': 'application/json'
+            };
+            
+            if (user) {
+                // Authenticated comment
+                headers['Authorization'] = `Bearer ${user.token}`;
+                payload = {
+                    jurnalId: postId,
+                    comment: commentText,
+                    username: user.username,
+                };
+            } else {
+                // Anonymous comment
+                endpoint = `${process.env.REACT_APP_API}/api/jurnal/comment/anonymous`;
+            }
+            
+            console.log(endpoint);
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(payload)
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Clear the form
+                setCommentText('');
+                
+                // Show success message
+                setCommentError(prev => ({
+                    ...prev,
+                    [postId]: 'Comentariul a fost adăugat cu succes!'
+                }));
+                
+                // Reload comments
+                loadComments(postId);
+                
+                // Clear success message after 3 seconds
+                setTimeout(() => {
+                    setCommentError(prev => ({ ...prev, [postId]: '' }));
+                }, 3000);
+            } else {
+                setCommentError(prev => ({
+                    ...prev,
+                    [postId]: data.error || 'Eroare la adăugarea comentariului.'
+                }));
+            }
+        } catch (error) {
+            console.error("Error submitting comment:", error);
+            setCommentError(prev => ({
+                ...prev,
+                [postId]: 'Eroare la adăugarea comentariului. Încearcă din nou.'
+            }));
+        } finally {
+            setSubmittingComment(false);
+        }
+    };
+
     return (
         <div className="container mx-auto py-10 px-4">
             <div className="max-w-4xl mx-auto">
@@ -127,7 +297,7 @@ const Jurnal = () => {
                         Jurnal de Festival
                     </h1>
                     
-                    {isAdmin && (
+                    {user?.username && (
                         <Link 
                             to="/jurnal/upload" 
                             className="bg-amber-700 hover:bg-amber-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center gap-2"
@@ -165,7 +335,7 @@ const Jurnal = () => {
                                                 )}
                                             </div>
                                             <div>
-                                                <h3 className="font-semibold text-amber-900">{post.username}</h3>
+                                                <h3 className="font-semibold text-amber-900">{post.username.toUpperCase()}</h3>
                                                 <div className="flex items-center text-amber-600 text-sm">
                                                     <FaCalendarAlt className="mr-1" />
                                                     <time>acum {formatDistanceToNow(new Date(post.createdAt), { 
@@ -176,7 +346,7 @@ const Jurnal = () => {
                                             </div>
                                         </div>
                                         
-                                        {isAdmin && (
+                                        {user?.username && (
                                             <button className="text-amber-600 hover:text-amber-800">
                                                 <FaPen />
                                             </button>
@@ -214,19 +384,12 @@ const Jurnal = () => {
                                         <div className="flex items-center gap-2">
                                             <span className="flex items-center gap-1">
                                                 <FaHeart />
-                                                {post.likes}
+                                                {post.likes.length}
                                             </span>
-                                            <span className="flex items-center gap-1">
+                                            <span className="flex items-center gap-1 cursor-pointer" onClick={() => toggleComments(post._id)}>
                                                 <FaComments />
-                                                {post.comments}
+                                                {post.comments.length}
                                             </span>
-                                        </div>
-                                        <div 
-                                            className="cursor-pointer hover:text-amber-800 flex items-center gap-1"
-                                            onClick={() => handleShare(post.id)}
-                                        >
-                                            <FaShare />
-                                            <span>Distribuie</span>
                                         </div>
                                     </div>
 
@@ -258,19 +421,145 @@ const Jurnal = () => {
                                 
                                 {/* Post actions */}
                                 <div className="grid grid-cols-3 border-t border-amber-100">
-                                    <button className="py-3 flex justify-center items-center gap-2 hover:bg-amber-50 transition-colors text-amber-700">
-                                        <FaHeart /> Like
+                                    <button 
+                                        onClick={() => likeJurnal(post._id)}
+                                        className="py-3 flex justify-center items-center gap-2 hover:bg-amber-50 transition-colors text-amber-700"
+                                    >
+                                        <FaHeart className={post.likes?.includes(user?.username) ? "text-red-500" : ""} /> 
+                                        Like
                                     </button>
-                                    <button className="py-3 flex justify-center items-center gap-2 hover:bg-amber-50 transition-colors text-amber-700 border-l border-r border-amber-100">
+                                    <button 
+                                        className="py-3 flex justify-center items-center gap-2 hover:bg-amber-50 transition-colors text-amber-700 border-l border-r border-amber-100"
+                                        onClick={() => toggleComments(post._id)}
+                                    >
                                         <FaComments /> Comentează
                                     </button>
                                     <button 
-                                        onClick={() => handleShare(post.id)}
+                                        onClick={() => handleShare(post._id)}
                                         className="py-3 flex justify-center items-center gap-2 hover:bg-amber-50 transition-colors text-amber-700"
                                     >
                                         <FaShare /> Distribuie
                                     </button>
                                 </div>
+
+                                {showComments[post._id] && (
+                                    <div className="border-t border-amber-100 bg-amber-50/50">
+                                        <div className="p-4">
+                                            <h4 className="text-amber-900 font-medium mb-4 flex items-center gap-2">
+                                                <FaComments className="text-amber-700" />
+                                                Comentarii ({post.comments?.length || 0})
+                                            </h4>
+                                            
+                                            {/* Comment form */}
+                                            <div className="mb-6">
+                                                <div className="flex items-start gap-3">
+                                                    <div className="w-8 h-8 rounded-full bg-amber-200 flex items-center justify-center overflow-hidden flex-shrink-0">
+                                                        {user ? (
+                                                            <span className="font-bold text-amber-800">{user.username.charAt(0).toUpperCase()}</span>
+                                                        ) : (
+                                                            <FaUser className="text-amber-700 text-sm" />
+                                                        )}
+                                                    </div>
+                                                    <div className="flex-grow">
+                                                        <textarea
+                                                            value={commentText}
+                                                            onChange={(e) => setCommentText(e.target.value)}
+                                                            placeholder="Adaugă un comentariu..."
+                                                            className="w-full border border-amber-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white text-amber-900 placeholder-amber-400/70 resize-none h-20"
+                                                        ></textarea>
+                                                        
+                                                        {!user && (
+                                                            <div className="mt-2 flex items-center gap-2">
+                                                                <FaUser className="text-amber-400 text-xs" />
+                                                                <input
+                                                                    type="text"
+                                                                    value="Anonim"
+                                                                    placeholder="Nume"
+                                                                    className="border border-amber-200 rounded p-1 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white text-amber-900 placeholder-amber-400/70"
+                                                                />
+                                                            </div>
+                                                        )}
+                                                        
+                                                        {/* {commentError[post._id] && (
+                                                            <div className={`mt-2 text-sm p-2 rounded ${
+                                                                commentError[post._id].includes('succes') 
+                                                                    ? 'bg-green-100 text-green-800' 
+                                                                    : 'bg-red-100 text-red-800'
+                                                            }`}>
+                                                                {commentError[post._id]}
+                                                            </div>
+                                                        )} */}
+                                                        
+                                                        <button
+                                                            onClick={() => submitComment(post._id)}
+                                                            disabled={submittingComment}
+                                                            className={`px-4 py-2 rounded 
+                                                                ${submittingComment 
+                                                                    ? 'bg-amber-500/50 text-white cursor-not-allowed' 
+                                                                    : 'bg-amber-600 hover:bg-amber-500 text-white'}
+                                                                flex items-center gap-2 transition-colors`}
+                                                        >
+                                                            {submittingComment ? (
+                                                                <>
+                                                                    <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+                                                                    Se trimite...
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <FaPaperPlane className="text-sm" />
+                                                                    Trimite
+                                                                </>
+                                                            )}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Comments list */}
+                                            <div className="space-y-4">
+                                                {post.comments && post.comments.length > 0 ? (
+                                                    post.comments.map((comment, idx) => (
+                                                        <div key={idx} className="flex gap-3">
+                                                            <div className="w-8 h-8 rounded-full bg-amber-200 flex items-center justify-center overflow-hidden flex-shrink-0">
+                                                                {comment.isAuthenticated ? (
+                                                                    <span className="font-bold text-amber-800">{comment.username.charAt(0).toUpperCase()}</span>
+                                                                ) : (
+                                                                    <FaUser className="text-amber-700 text-sm" />
+                                                                )}
+                                                            </div>
+                                                            <div className="flex-grow">
+                                                                <div className="bg-white p-3 rounded-lg shadow-sm border border-amber-100">
+                                                                    <div className="flex justify-between items-center mb-1">
+                                                                        <span className={`font-medium ${comment.isAuthenticated ? 'text-amber-800' : 'text-amber-600'}`}>
+                                                                            {comment.username}
+                                                                            {comment.isAuthenticated && (
+                                                                                <span className="ml-2 text-xs bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">
+                                                                                    Autentificat
+                                                                                </span>
+                                                                            )}
+                                                                        </span>
+                                                                        <span className="text-amber-400 text-xs">
+                                                                            {comment.createdAt && formatDistanceToNow(new Date(comment.createdAt), { 
+                                                                                locale: ro, 
+                                                                                addSuffix: true 
+                                                                            })}
+                                                                        </span>
+                                                                    </div>
+                                                                    <p className="text-amber-900 whitespace-pre-line">{comment.comment}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <div className="text-center py-6 text-amber-600">
+                                                        <FaComments className="mx-auto mb-2 text-2xl opacity-40" />
+                                                        <p>Nu există comentarii încă. Fii primul care comentează!</p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>

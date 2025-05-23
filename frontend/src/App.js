@@ -6,6 +6,8 @@ import Editii from './pages/Editii';
 import NotFound from './pages/NotFound';
 import Jurnal from './pages/Jurnal';
 import JurnalUpload from './components/JurnalUpload';
+import Regulament from './pages/Regulament';
+import Galerie from './pages/Galerie';
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +22,8 @@ function App() {
             <Route path = "/editii/:editie" element={<Editii/>}/>
             <Route path = "/jurnal" element={<Jurnal/>}/>
             <Route path = "/jurnal/upload" element={<JurnalUpload/>}/>
+            <Route path = "/regulament" element={<Regulament/>}/>
+            <Route path = "/galerie" element = {<Galerie/>}/>
           </Routes>
         </div>
         <FooTer/>
