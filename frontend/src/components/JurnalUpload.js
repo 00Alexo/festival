@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaImage, FaTimes, FaArrowLeft, FaPaperPlane } from 'react-icons/fa';
+import { useAuthContext } from '../Hooks/useAuthContext';
 
 const JurnalUpload = () => {
+    const { user } = useAuthContext();
     const [content, setContent] = useState('');
     const [images, setImages] = useState([]);
     const [uploading, setUploading] = useState(false);
@@ -24,16 +26,25 @@ const JurnalUpload = () => {
         
         setError('');
         
-        // Process only up to 3 images
-        const newImages = files.slice(0, 3 - images.length).map(file => ({
-            id: Date.now() + Math.random(),
-            file,
-            preview: URL.createObjectURL(file)
-        }));
-
-        console.log(newImages);
-        
-        setImages([...images, ...newImages]);
+        // Process each file and convert to base64
+        files.slice(0, 3 - images.length).forEach(file => {
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                // When the file is read, add it to the images array
+                setImages(prevImages => [
+                    ...prevImages, 
+                    {
+                        id: Date.now() + Math.random(),
+                        //file: file,
+                        preview: e.target.result // This is the base64 string
+                    }
+                ]);
+            };
+            
+            // Read the file as a data URL (base64)
+            reader.readAsDataURL(file);
+        });
     };
 
     const removeImage = (id) => {
@@ -47,7 +58,7 @@ const JurnalUpload = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        if (!content.trim()) {
+        if (!content.trim() || images.length === 0) {
             setError('Te rugăm să adaugi conținutul postării.');
             return;
         }
@@ -55,20 +66,53 @@ const JurnalUpload = () => {
         setUploading(true);
         
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            
-            // Redirect back to journal after "successful" upload
-            //navigate('/jurnal');
+            console.log(content, images, user.username);
+
+            const response = await fetch(`${process.env.REACT_APP_API}/api/jurnal/uploadJurnal`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${user.token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content,
+                    images,
+                    username: user.username
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to upload post');
+            }
+
+            setUploading(false);
+            navigate('/jurnal');
         } catch (error) {
             setError('A apărut o eroare la încărcarea postării. Te rugăm să încerci din nou.');
             setUploading(false);
         }
     };
 
+    if(!user) {
+        return (
+            <div className="container mx-auto py-10 px-4">
+                <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-amber-100">
+                    <div className="bg-gradient-to-r from-amber-700 to-orange-600 p-4 text-white flex items-center justify-between">
+                        <h1 className="text-xl font-bold flex items-center gap-2">
+                            <FaPaperPlane /> Adaugă o postare nouă
+                        </h1>
+                    </div>
+                    <div className="p-5">
+                        <p className="text-red-500">Te rugăm să te autentifici pentru a adăuga o postare.</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="container mx-auto py-10 px-4">
-            <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-amber-100">
+            <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-amber-100" id="upload">
                 <div className="bg-gradient-to-r from-amber-700 to-orange-600 p-4 text-white flex items-center justify-between">
                     <h1 className="text-xl font-bold flex items-center gap-2">
                         <FaPaperPlane /> Adaugă o postare nouă

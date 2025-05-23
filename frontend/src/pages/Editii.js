@@ -6,7 +6,6 @@ const Editii = () => {
     const editii = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     const {editie} = useParams();
-    console.log(editie);
 
     if(!editii.includes(parseInt(editie))) {
         return (

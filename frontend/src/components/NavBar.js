@@ -74,7 +74,7 @@ const NavBar = () => {
                 </div>
                 <Link to="/galerie" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Galerie</Link>
                 <Link to="/jurnal" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Jurnal</Link>
-                <a href="#footer" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Sponsori</a>
+                <a href="#sponsori" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Sponsori</a>
                 <Link to="/regulament" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Regulament</Link>
                 <div className="flex gap-4 ml-2">
                 <a href="https://www.facebook.com/people/Festivalul-Internațional-de-Teatru-pentru-Liceeni-Ioana-Cîcu/100064161033607/?rdid=GEZ5gKEYeaDHPlCp&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F19Mz1JHtRM%2F" className="hover:text-amber-300 transition-colors" target="_blank" rel="noopener noreferrer">
@@ -120,7 +120,7 @@ const NavBar = () => {
                 </div>
                 <Link to="/galerie" className="block py-3 text-lg hover:text-amber-300">Galerie</Link>
                 <Link to="/jurnal" className="block py-3 text-lg hover:text-amber-300">Jurnal</Link>
-                <a href="#footer" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Sponsori</a>
+                <a href="#sponsori" className="hover:text-amber-300 transition-colors py-2 border-b-2 border-transparent hover:border-amber-300">Sponsori</a>
                 <Link to="/regulament" className="block py-3 text-lg hover:text-amber-300">Regulament</Link>
                 <div className="flex gap-4 py-3">
                     <a href="https://www.facebook.com/people/Festivalul-Internațional-de-Teatru-pentru-Liceeni-Ioana-Cîcu/100064161033607/?rdid=GEZ5gKEYeaDHPlCp&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F19Mz1JHtRM%2F" className="hover:text-amber-300" target="_blank" rel="noopener noreferrer">

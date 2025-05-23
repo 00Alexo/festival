@@ -1,21 +1,25 @@
 import { useState } from 'react';
 import { FaFacebookF, FaInstagram, FaHandshake, FaTheaterMasks, FaLock, FaUser } from 'react-icons/fa';
+import { useSignin } from '../Hooks/useSignIn';
+import { useAuthContext } from '../Hooks/useAuthContext';
+import { useLogout } from '../Hooks/useLogout';
+import { Link } from 'react-router-dom';
 
 const FooTer = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [loginError, setLoginError] = useState('');
+    const {signin, error: loginError, isLoading, errorFields} = useSignin();
+    const { user } = useAuthContext();
+    const { logout } = useLogout();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-
-        setIsLoading(true);
+        await signin(username, password);
     }
 
     return (
         <div>
-            <footer className="bg-gradient-to-br from-amber-800 to-amber-900 text-amber-100 py-12" id="footer">
+            <footer className="bg-gradient-to-br from-amber-800 to-amber-900 text-amber-100 py-12" id="sponsori">
                 <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                     {/* Contact Info */}
@@ -47,58 +51,84 @@ const FooTer = () => {
                         </div>
 
                         {/* Login Form */}
-                        <div className="mt-8 bg-amber-900/50 p-4 rounded-lg border border-amber-700/50">
-                            <h4 className="text-lg font-semibold text-amber-300 mb-3 flex items-center gap-2">
-                                <FaLock className="text-amber-300" /> Autentificare
-                            </h4>
-                            <form onSubmit={handleLogin}>
-                                {loginError && (
-                                    <div className="bg-red-900/30 text-red-200 p-2 rounded mb-3 text-sm">
-                                        {loginError}
+                        {!user ? (
+                            <div className="mt-8 bg-amber-900/50 p-4 rounded-lg border border-amber-700/50">
+                                <h4 className="text-lg font-semibold text-amber-300 mb-3 flex items-center gap-2">
+                                    <FaLock className="text-amber-300" /> Autentificare
+                                </h4>
+                                <form onSubmit={handleLogin}>
+                                    {loginError && (
+                                        <div className="bg-red-900/30 text-red-200 p-2 rounded mb-3 text-sm">
+                                            {loginError}
+                                        </div>
+                                    )}
+                                    <div className="mb-3">
+                                        <div className="flex items-center bg-amber-800/50 rounded overflow-hidden">
+                                            <span className="p-2 border-r border-amber-700/50">
+                                                <FaUser className="text-amber-400" />
+                                            </span>
+                                            <input
+                                                type="text"
+                                                placeholder="Utilizator"
+                                                value={username}
+                                                onChange={(e) => setUsername(e.target.value)}
+                                                className="bg-transparent p-2 w-full focus:outline-none text-amber-100 placeholder-amber-400/70"
+                                            />
+                                        </div>
                                     </div>
-                                )}
-                                <div className="mb-3">
-                                    <div className="flex items-center bg-amber-800/50 rounded overflow-hidden">
-                                        <span className="p-2 border-r border-amber-700/50">
-                                            <FaUser className="text-amber-400" />
-                                        </span>
-                                        <input
-                                            type="text"
-                                            placeholder="Utilizator"
-                                            value={username}
-                                            onChange={(e) => setUsername(e.target.value)}
-                                            className="bg-transparent p-2 w-full focus:outline-none text-amber-100 placeholder-amber-400/70"
-                                        />
+                                    <div className="mb-3">
+                                        <div className="flex items-center bg-amber-800/50 rounded overflow-hidden">
+                                            <span className="p-2 border-r border-amber-700/50">
+                                                <FaLock className="text-amber-400" />
+                                            </span>
+                                            <input
+                                                type="password"
+                                                placeholder="Parolă"
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                className="bg-transparent p-2 w-full focus:outline-none text-amber-100 placeholder-amber-400/70"
+                                            />
+                                        </div>
                                     </div>
+                                    <button 
+                                        type="submit"
+                                        disabled={isLoading}
+                                        className={`w-full ${isLoading ? 'bg-amber-600/50' : 'bg-amber-600 hover:bg-amber-500'} transition-colors text-white py-2 rounded flex items-center justify-center`}
+                                    >
+                                        {isLoading ? (
+                                            <>
+                                                <span className="animate-spin h-4 w-4 mr-2 border-2 border-white border-t-transparent rounded-full"></span>
+                                                Se procesează...
+                                            </>
+                                        ) : 'Autentificare'}
+                                    </button>
+                                </form>
+                            </div>
+                        ) : (
+                            <div className="mt-8 bg-amber-900/50 p-4 rounded-lg border border-amber-700/50">
+                                <h4 className="text-lg font-semibold text-amber-300 mb-3 flex items-center gap-2">
+                                    <FaUser className="text-amber-300" /> Profil conectat
+                                </h4>
+                                <div className="text-amber-100 mb-4">
+                                    <p className="mb-1">Bine ai venit, <span className="font-medium text-amber-200">{user.username.toUpperCase() || 'Administrator'}</span>!</p>
+                                    <p className="text-sm text-amber-200/70">Ești conectat la Panoul de Administrare</p>
                                 </div>
-                                <div className="mb-3">
-                                    <div className="flex items-center bg-amber-800/50 rounded overflow-hidden">
-                                        <span className="p-2 border-r border-amber-700/50">
-                                            <FaLock className="text-amber-400" />
-                                        </span>
-                                        <input
-                                            type="password"
-                                            placeholder="Parolă"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            className="bg-transparent p-2 w-full focus:outline-none text-amber-100 placeholder-amber-400/70"
-                                        />
-                                    </div>
+                                <div className="flex gap-2">
+                                    <a 
+                                        href="/jurnal/upload#upload" 
+                                        className="flex-1 bg-amber-800/50 hover:bg-amber-800 transition-colors text-amber-100 py-2 rounded text-center text-sm"
+                                    >
+                                        Adaugă postare
+                                    </a>
+                                    <button 
+                                        onClick={() => logout()}
+                                        className="flex items-center justify-center gap-1 bg-amber-600 hover:bg-amber-500 transition-colors text-white py-2 px-3 rounded"
+                                    >
+                                        <FaLock className="text-xs" /> Deconectare
+                                    </button>
                                 </div>
-                                <button 
-                                    type="submit"
-                                    disabled={isLoading}
-                                    className={`w-full ${isLoading ? 'bg-amber-600/50' : 'bg-amber-600 hover:bg-amber-500'} transition-colors text-white py-2 rounded flex items-center justify-center`}
-                                >
-                                    {isLoading ? (
-                                        <>
-                                            <span className="animate-spin h-4 w-4 mr-2 border-2 border-white border-t-transparent rounded-full"></span>
-                                            Se procesează...
-                                        </>
-                                    ) : 'Autentificare'}
-                                </button>
-                            </form>
-                        </div>
+                            </div>
+                        )}
                     </div>
                     
                     {/* Sponsors */}
