@@ -52,7 +52,7 @@ const FooTer = () => {
 
                         {/* Login Form */}
                         {!user ? (
-                            <div className="mt-8 bg-amber-900/50 p-4 rounded-lg border border-amber-700/50">
+                            <div className="mt-8 bg-amber-900/50 p-4 rounded-lg border border-amber-700/50" id="autentificare">
                                 <h4 className="text-lg font-semibold text-amber-300 mb-3 flex items-center gap-2">
                                     <FaLock className="text-amber-300" /> Autentificare
                                 </h4>
