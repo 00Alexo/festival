@@ -141,7 +141,7 @@ const JurnalUpload = () => {
                             value={content}
                             onChange={handleContentChange}
                             className="w-full min-h-[200px] p-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-                            placeholder="Scrie postarea ta aici..."
+                            placeholder="Adauga continutul postării tale..."
                         ></textarea>
                     </div>
                     
