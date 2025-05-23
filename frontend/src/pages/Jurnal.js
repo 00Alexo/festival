@@ -426,19 +426,19 @@ const Jurnal = () => {
                                         className="py-3 flex justify-center items-center gap-2 hover:bg-amber-50 transition-colors text-amber-700"
                                     >
                                         <FaHeart className={post.likes?.includes(user?.username) ? "text-red-500" : ""} /> 
-                                        Like
+                                        <span className="hidden md:inline">Like</span>
                                     </button>
                                     <button 
                                         className="py-3 flex justify-center items-center gap-2 hover:bg-amber-50 transition-colors text-amber-700 border-l border-r border-amber-100"
                                         onClick={() => toggleComments(post._id)}
                                     >
-                                        <FaComments /> Comentează
+                                        <FaComments /> <span className="hidden md:inline">Comentează</span>
                                     </button>
                                     <button 
                                         onClick={() => handleShare(post._id)}
                                         className="py-3 flex justify-center items-center gap-2 hover:bg-amber-50 transition-colors text-amber-700"
                                     >
-                                        <FaShare /> Distribuie
+                                        <FaShare /> <span className="hidden md:inline">Distribuie</span>
                                     </button>
                                 </div>
 
@@ -469,7 +469,7 @@ const Jurnal = () => {
                                                         ></textarea>
                                                         
                                                         {!user && (
-                                                            <div className="mt-2 flex items-center gap-2">
+                                                            <div className="mt-2 flex items-center gap-2 pb-3">
                                                                 <FaUser className="text-amber-400 text-xs" />
                                                                 <input
                                                                     type="text"

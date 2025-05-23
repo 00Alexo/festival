@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FaHome, FaFacebookF, FaChevronDown, FaInstagram, FaYoutube } from 'react-icons/fa';
 import festivalPoster from '../assets/poster.png';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
@@ -109,9 +110,9 @@ const HomePage = () => {
           </div>
           
           <div className="mt-16 text-center">
-            <a href="/program" className="text-lg text-amber-800 font-semibold border-b-2 border-amber-600 pb-1 hover:text-amber-600 transition-colors">
+            <Link to="/editii/9" className="text-lg text-amber-800 font-semibold border-b-2 border-amber-600 pb-1 hover:text-amber-600 transition-colors">
               Descoperă programul complet al festivalului →
-            </a>
+            </Link>
           </div>
         </section>
       </main>
