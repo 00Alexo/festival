@@ -13,6 +13,23 @@ const Jurnal = () => {
     const [showCopyModal, setShowCopyModal] = useState(false);
     const [copiedPostId, setCopiedPostId] = useState(null);
     const location = useLocation();
+    const [showImageViewer, setShowImageViewer] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const openImageViewer = (image) => {
+        setSelectedImage(image);
+        setShowImageViewer(true);
+        // Prevent scrolling when modal is open
+        document.body.style.overflow = 'hidden';
+    };
+    
+    // Function to close the image viewer
+    const closeImageViewer = () => {
+        setShowImageViewer(false);
+        setSelectedImage(null);
+        // Re-enable scrolling
+        document.body.style.overflow = 'auto';
+    };
 
     const getJurnale = async () =>{
         const response = await fetch(`${process.env.REACT_APP_API}/api/jurnal/getJurnale`,{
@@ -179,7 +196,8 @@ const Jurnal = () => {
                                             {post.images.map((img, idx) => (
                                                 <div 
                                                     key={idx} 
-                                                    className="aspect-video bg-amber-100 rounded-lg overflow-hidden"
+                                                    onClick={() => openImageViewer(img)}
+                                                    className="aspect-video bg-amber-100 rounded-lg overflow-hidden cursor-pointer transition-transform transform hover:scale-[1.02]"
                                                 >
                                                     <img 
                                                         src={img.preview} 
@@ -211,6 +229,31 @@ const Jurnal = () => {
                                             <span>Distribuie</span>
                                         </div>
                                     </div>
+
+                                    {showImageViewer && selectedImage && (
+                                        <div 
+                                            className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+                                            onClick={closeImageViewer}
+                                        >
+                                            <div 
+                                                className="relative max-w-6xl max-h-full"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <img 
+                                                    src={selectedImage.preview || selectedImage} 
+                                                    alt="Imagine mărită"
+                                                    className="max-w-full max-h-[90vh] object-contain"
+                                                />
+                                                
+                                                <button 
+                                                    className="absolute top-2 right-2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 rounded-full transition-colors"
+                                                    onClick={closeImageViewer}
+                                                >
+                                                    <FaTimes className="text-xl" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                                 
                                 {/* Post actions */}
