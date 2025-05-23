@@ -5,65 +5,65 @@ import {
 } from 'react-icons/fa';
 
 const mockPosts = [
-        {
-            id: 1,
-            author: "Maria Popescu",
-            authorImg: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-            date: "22 mai 2025",
-            content: "Astăzi am început pregătirile pentru Festivalul de Teatru \"Ioana Cîcu\" 2025! Echipa noastră a finalizat selecția pieselor care vor fi prezentate și suntem încântați de diversitatea și calitatea lucrărilor din acest an.\n\nNe vedem pe 24 mai pentru o zi plină de teatru, emoție și creativitate!",
-            images: [
-                "https://images.unsplash.com/photo-1503095396549-807759245b35",
-                "https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212"
-            ],
-            likes: 24,
-            comments: 6
-        },
-        {
-            id: 2,
-            author: "Adrian Ștefănuți",
-            date: "15 mai 2025",
-            content: "Repetiții intense cu Trupa M.E.E.M. pentru piesa \"Pitici pe creier\". Suntem mândri de progresul pe care l-am făcut și nerăbdători să prezentăm adaptarea noastră după \"Inside Out\". Tinerii actori au muncit enorm și au reușit să surprindă perfect esența emoțiilor umane prin performance-ul lor.",
-            images: [
-                "https://images.unsplash.com/photo-1516307365426-bea591f05011",
-                "https://images.unsplash.com/photo-1469406396016-013bfae5d83e",
-                "https://images.unsplash.com/photo-1598387181032-a3103a2db5b3"
-            ],
-            likes: 37,
-            comments: 12
-        },
-        {
-            id: 3,
-            author: "Claudia Mărculescu",
-            authorImg: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
-            date: "10 mai 2025",
-            content: "Trupa Clubul de teatru LTCD se pregătește pentru două reprezentații la festivalul din acest an! \"Spărgătorul de nuci\" și \"Cuiul lui Nastratin Hogea\" sunt două piese complet diferite care vor arăta versatilitatea tinerilor noștri actori.\n\nAm lucrat la costume și decoruri săptămânile trecute și suntem aproape gata pentru marele eveniment!",
-            images: [
-                "https://images.unsplash.com/photo-1603203040743-2aea8aa46182"
-            ],
-            likes: 18,
-            comments: 4
-        },
-        {
-            id: 4,
-            author: "Florin Runcan",
-            date: "5 mai 2025",
-            content: "Trupa Scara prezintă anul acesta două piese contrastante: \"O întâmplare cu defecțiuni tehnice\", o creație originală a trupei noastre de gimnaziu, și clasica \"O cerere în căsătorie\" de Cehov, interpretată de trupa de liceu. Suntem încântați să participăm la Festivalul \"Ioana Cîcu\" și să împărtășim munca noastră cu iubitorii de teatru.",
-            likes: 15,
-            comments: 3
-        },
-        {
-            id: 5,
-            author: "Carmen Man",
-            authorImg: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb",
-            date: "1 mai 2025",
-            content: "Trupa Ecouri din culise a finalizat ultimele repetiții pentru \"Gaițele\". Sunt atât de mândră de acești tineri actori care au abordat cu curaj această piesă clasică a lui Alexandru Kirițescu. Au reușit să aducă o interpretare proaspătă și autentică, păstrând în același timp esența textului original.",
-            images: [
-                "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf",
-                "https://images.unsplash.com/photo-1530649159659-c3a9d5a7eaad"
-            ],
-            likes: 29,
-            comments: 7
-        }
+        // {
+        //     id: 1,
+        //     author: "Maria Popescu",
+        //     authorImg: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+        //     date: "22 mai 2025",
+        //     content: "Astăzi am început pregătirile pentru Festivalul de Teatru \"Ioana Cîcu\" 2025! Echipa noastră a finalizat selecția pieselor care vor fi prezentate și suntem încântați de diversitatea și calitatea lucrărilor din acest an.\n\nNe vedem pe 24 mai pentru o zi plină de teatru, emoție și creativitate!",
+        //     images: [
+        //         "https://images.unsplash.com/photo-1503095396549-807759245b35",
+        //         "https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212"
+        //     ],
+        //     likes: 24,
+        //     comments: 6
+        // },
+        // {
+        //     id: 2,
+        //     author: "Adrian Ștefănuți",
+        //     date: "15 mai 2025",
+        //     content: "Repetiții intense cu Trupa M.E.E.M. pentru piesa \"Pitici pe creier\". Suntem mândri de progresul pe care l-am făcut și nerăbdători să prezentăm adaptarea noastră după \"Inside Out\". Tinerii actori au muncit enorm și au reușit să surprindă perfect esența emoțiilor umane prin performance-ul lor.",
+        //     images: [
+        //         "https://images.unsplash.com/photo-1516307365426-bea591f05011",
+        //         "https://images.unsplash.com/photo-1469406396016-013bfae5d83e",
+        //         "https://images.unsplash.com/photo-1598387181032-a3103a2db5b3"
+        //     ],
+        //     likes: 37,
+        //     comments: 12
+        // },
+        // {
+        //     id: 3,
+        //     author: "Claudia Mărculescu",
+        //     authorImg: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+        //     date: "10 mai 2025",
+        //     content: "Trupa Clubul de teatru LTCD se pregătește pentru două reprezentații la festivalul din acest an! \"Spărgătorul de nuci\" și \"Cuiul lui Nastratin Hogea\" sunt două piese complet diferite care vor arăta versatilitatea tinerilor noștri actori.\n\nAm lucrat la costume și decoruri săptămânile trecute și suntem aproape gata pentru marele eveniment!",
+        //     images: [
+        //         "https://images.unsplash.com/photo-1603203040743-2aea8aa46182"
+        //     ],
+        //     likes: 18,
+        //     comments: 4
+        // },
+        // {
+        //     id: 4,
+        //     author: "Florin Runcan",
+        //     date: "5 mai 2025",
+        //     content: "Trupa Scara prezintă anul acesta două piese contrastante: \"O întâmplare cu defecțiuni tehnice\", o creație originală a trupei noastre de gimnaziu, și clasica \"O cerere în căsătorie\" de Cehov, interpretată de trupa de liceu. Suntem încântați să participăm la Festivalul \"Ioana Cîcu\" și să împărtășim munca noastră cu iubitorii de teatru.",
+        //     likes: 15,
+        //     comments: 3
+        // },
+        // {
+        //     id: 5,
+        //     author: "Carmen Man",
+        //     authorImg: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb",
+        //     date: "1 mai 2025",
+        //     content: "Trupa Ecouri din culise a finalizat ultimele repetiții pentru \"Gaițele\". Sunt atât de mândră de acești tineri actori care au abordat cu curaj această piesă clasică a lui Alexandru Kirițescu. Au reușit să aducă o interpretare proaspătă și autentică, păstrând în același timp esența textului original.",
+        //     images: [
+        //         "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf",
+        //         "https://images.unsplash.com/photo-1530649159659-c3a9d5a7eaad"
+        //     ],
+        //     likes: 29,
+        //     comments: 7
+        // }
 ];
 const Jurnal = () => {
     const [posts, setPosts] = useState([]);
