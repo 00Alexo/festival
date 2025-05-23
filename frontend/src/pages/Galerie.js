@@ -22,15 +22,15 @@ const Galerie = () => {
 
     // Sample images for edition 8 (replace with real API call)
     const dummyImages = [
-        { id: 1, src: "https://i.imgur.com/eHk23bp.jpeg", alt: "Festival moment" },
-        { id: 2, src: "https://i.imgur.com/TJty0vJ.jpeg", alt: "Performance" },
-        { id: 3, src: "https://i.imgur.com/vott1Fd.jpeg", alt: "Actors" },
-        { id: 4, src: "https://i.imgur.com/EDqN8s7.jpeg", alt: "Stage" },
-        { id: 5, src: "https://i.imgur.com/jHltJza.jpeg", alt: "Audience" },
-        { id: 6, src: "https://i.imgur.com/5zuKGY0.jpeg", alt: "Theater hall" },
-        { id: 7, src: "https://i.imgur.com/cF6qeU2.jpeg", alt: "Performance" },
-        { id: 8, src: "https://i.imgur.com/VZQz0Gh.jpeg", alt: "Behind the scenes" },
-        { id: 9, src: "https://i.imgur.com/OhinuDD.jpeg", alt: "Festival moment" }
+        { id: 1, src: "https://i.imgur.com/eHk23bp.jpeg", },
+        { id: 2, src: "https://i.imgur.com/TJty0vJ.jpeg"},
+        { id: 3, src: "https://i.imgur.com/vott1Fd.jpeg"},
+        { id: 4, src: "https://i.imgur.com/EDqN8s7.jpeg" },
+        { id: 5, src: "https://i.imgur.com/jHltJza.jpeg" },
+        { id: 6, src: "https://i.imgur.com/5zuKGY0.jpeg" },
+        { id: 7, src: "https://i.imgur.com/cF6qeU2.jpeg" },
+        { id: 8, src: "https://i.imgur.com/VZQz0Gh.jpeg"},
+        { id: 9, src: "https://i.imgur.com/OhinuDD.jpeg" }
     ];
 
     useEffect(() => {
@@ -146,7 +146,6 @@ const Galerie = () => {
                             >
                                 <img 
                                     src={image.src} 
-                                    alt={image.alt}
                                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
@@ -182,7 +181,6 @@ const Galerie = () => {
                     >
                         <img 
                             src={lightboxImage.src} 
-                            alt={lightboxImage.alt}
                             className="max-w-full max-h-[90vh] object-contain"
                         />
                         
@@ -192,10 +190,6 @@ const Galerie = () => {
                         >
                             <FaTimes className="text-xl" />
                         </button>
-                        
-                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 px-4 py-2 rounded-lg text-white text-sm">
-                            {lightboxImage.alt}
-                        </div>
                     </div>
                 </div>
             )}
