@@ -83,7 +83,7 @@ const NavBar = () => {
                 </div>
             </div>
             
-            <div className='flex flex-row gap-5'>
+            <div className='flex flex-row gap-5 md:hidden'>
                 <a href="https://www.facebook.com/people/Festivalul-Internațional-de-Teatru-pentru-Liceeni-Ioana-Cîcu/100064161033607/?rdid=GEZ5gKEYeaDHPlCp&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F19Mz1JHtRM%2F" className="hover:text-amber-300 transition-colors md:hidden" target="_blank" rel="noopener noreferrer">
                     <FaFacebookF className="text-xl text-blue-700" />
                 </a>
