@@ -65,45 +65,48 @@ const HomePage = () => {
             <div className="bg-amber-100 p-8 rounded-2xl shadow-lg h-[100%]">
               <h3 className="text-2xl font-bold text-orange-600 mb-4">Viziune și Misiune</h3>
               <p className="text-amber-900 mb-4">
-                Clubul de Teatru Ioana Cicu își propune să fie un laborator de creativitate și expresie artistică, reunind artiști și iubitori 
-                de teatru într-un spațiu de dialog și experimentare. Festivalul nostru celebrează diversitatea și profunzimea 
-                artei teatrale contemporane.
+                Liceul Teoretic din Carei organizează a noua ediţie a ,,Festivalului interjudeţean de teatru pentru elevi Ioana Cîcu", 
+                în semn de omagiu pentru cea care a fost un dascăl de valoare al acestei instituţii, contribuind prin activitatea sa 
+                didactică la conturarea şi menţinerea unui mediu profesional care îmbină perfect sensibilitatea artistică şi rigoarea 
+                demersului didactic.
               </p>
               <p className="text-amber-900 mb-4">
-                Misiunea noastră este să promovăm arta teatrală ca formă de educare, inspirație și transformare socială, 
-                încurajând tinerii artiști să-și exploreze potențialul creativ și să dezvolte proiecte inovatoare.
+                Prin intermediul activităţilor se urmăreşte cultivarea în rândul elevilor a dorinţei de a participa la manifestări 
+                cultural-artistice desfăşurate în şcoală şi în comunitate, educarea tinerilor pentru formarea unui comportament adecvat 
+                în sălile de spectacole, atât în calitate de spectator, consumator al actului cultural, cât şi în postura de creator 
+                al acestuia.
               </p>
-              <h3 className="text-2xl font-bold text-orange-600 mb-4 mt-8">Valori</h3>
+              <h3 className="text-2xl font-bold text-orange-600 mb-4 mt-8">Obiective</h3>
               <ul className="list-disc pl-5 text-amber-900">
-                <li className="mb-2">Excelență artistică și profesionalism</li>
-                <li className="mb-2">Incluziune și diversitate culturală</li>
-                <li className="mb-2">Colaborare și comunitate</li>
-                <li className="mb-2">Inovație și experimentare</li>
+                <li className="mb-2">Dezvoltarea spiritului de echipă şi de cooperare între elevi</li>
+                <li className="mb-2">Promovarea artei teatrale pentru lărgirea orizontului cultural</li>
+                <li className="mb-2">Crearea unui dialog sincer și creativ între tineri</li>
+                <li className="mb-2">Demonstrarea că arta scenică nu cunoaşte limite culturale, lingvistice, etnice sau profesionale</li>
               </ul>
             </div>
             
             <div className="space-y-8">
               <div className="bg-gradient-to-br from-amber-700 to-orange-600 p-8 rounded-2xl shadow-lg text-amber-50">
-                <h3 className="text-2xl font-bold mb-4">Experiență Unică</h3>
+                <h3 className="text-2xl font-bold mb-4">Oportunitate pentru Tineri</h3>
                 <p>
-                  Pe parcursul festivalului, publicul va avea ocazia să asiste la reprezentații diverse, de la teatru 
-                  experimental până la reinterpretări ale operelor clasice, toate într-o atmosferă intimă și vibrantă.
+                  Festivalul-concurs reprezintă o oportunitate oferită elevilor de a se cunoaşte şi de a se întâlni cu alte trupe 
+                  de teatru similare lor, din alte oraşe, lansând o invitaţie la un dialog sincer şi creativ.
                 </p>
               </div>
               
               <div className="bg-amber-800 p-8 rounded-2xl shadow-lg text-amber-50">
-                <h3 className="text-2xl font-bold mb-4">Ateliere și Workshopuri</h3>
+                <h3 className="text-2xl font-bold mb-4">Participanți</h3>
                 <p>
-                  Festivalul include ateliere de actorie, scriere dramatică și regie, oferind participanților oportunitatea 
-                  de a învăța de la profesioniști cu experiență în domeniu și de a-și dezvolta abilitățile artistice.
+                  Concursul se adresează trupelor alcătuite din elevi atât din ciclul gimnazial, cât şi din cel liceal,
+                  încurajând exprimarea artistică și dezvoltarea abilităților performative la diverse niveluri de educație.
                 </p>
               </div>
               
               <div className="bg-orange-500 p-8 rounded-2xl shadow-lg text-amber-50">
                 <h3 className="text-2xl font-bold mb-4">Comunitate și Dialog</h3>
                 <p>
-                  Mai mult decât un simplu festival, Clubul de Teatru Ioana Cicu creează un spațiu de comuniune și dialog între artiști, 
-                  public și critici, încurajând dezbaterile despre rolul teatrului în societatea contemporană.
+                  Mai mult decât un simplu festival, acest eveniment creează un spațiu de comuniune și dialog între tinerii artiști, 
+                  dascăli și public, onorând memoria profesoarei Ioana Cîcu și continuând misiunea sa educativă prin arta teatrală.
                 </p>
               </div>
             </div>
